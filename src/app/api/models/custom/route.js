@@ -29,8 +29,8 @@ export async function GET() {
 export async function POST(request) {
   try {
     const { providerAlias, id, type, name, caps } = await request.json();
-    if (!providerAlias || !id) {
-      return NextResponse.json({ error: "providerAlias and id required" }, { status: 400 });
+    if (!providerAlias || !id || typeof id !== "string") {
+      return NextResponse.json({ error: "providerAlias and id (string) required" }, { status: 400 });
     }
     const cleanCaps = sanitizeCaps(caps);
     const added = await addCustomModel({ providerAlias, id, type: type || "llm", name, ...(cleanCaps ? { caps: cleanCaps } : {}) });

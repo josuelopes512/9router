@@ -143,7 +143,7 @@ export default function CompatibleModelsSection({ providerStorageAlias, provider
       let importedCount = 0;
       for (const model of models) {
         const modelId = model.id || model.name || model.model;
-        if (!modelId) continue;
+        if (!modelId || typeof modelId !== "string") continue;
         if (allModels.some((entry) => entry.id === modelId)) continue;
         await onAddCustomModel(modelId);
         importedCount += 1;
