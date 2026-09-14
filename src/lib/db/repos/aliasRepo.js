@@ -26,7 +26,7 @@ function customKey(providerAlias, id, type) {
 
 export async function getCustomModels() {
   const all = await customKv.getAll();
-  return Object.values(all);
+  return Object.values(all).filter((m) => typeof m?.id === "string" && m.id);
 }
 
 // Atomic upsert inside transaction to prevent duplicate races.
